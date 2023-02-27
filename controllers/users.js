@@ -1,6 +1,5 @@
 const usersService = require('../services/users')
 
-
 function getUsers (req,res) {
     const users = usersService.getUsers();
     res.json(users);
@@ -8,12 +7,14 @@ function getUsers (req,res) {
  
  }
 
- function removeUser (req, res) {
-    const userName = req.params.userName
-    const filteredUser = usersService.deleteUser(userName);
-    res.json(filteredUser);
-    
-  }
+ function removeUser(req, res) {
+  const userName = req.params.userName;
+  const password  = req.params.password;
+  
+  const updatedUsersList = usersServices.removeUser(userName,password);
+  res.json(updatedUsersList);
+}
+
 
   function registarNewUser (req,res) {
     const newUser = req.body;
@@ -21,6 +22,13 @@ function getUsers (req,res) {
     res.json(newUser)
 
   }
+
+function login (req,res) {
+  const loginDetails = req.body;
+  const userInfo = userInfo.login(loginDetails);
+  
+}
+
 
   function updateUser(req, res) {
     const userName = req.params.userName;

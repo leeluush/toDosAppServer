@@ -26,20 +26,23 @@ function userAutentication (userName, password) {
  function registarNewUser ({userName,password,email}) {
     const currentUsers = getUsers();
     currentUsers.push({
+        id: btoa(Math.random()),
         userName, 
-        password: btoa(Math.random()),
+        password,
         email,
     });
     setUsers (currentUsers)
 }
 
 
-function deleteUser(userName,password) {
+function removeUser(userName, password) {
     const currentUsers = getUsers();
-    const upDateUsersList = currentUsers.filter(user => password !== userName.password());
-    setUsers(upDateUsersList);
-    return (filtereUsers);
-}
+    const updatedUsersList = currentUsers.filter(user => user.userName !== userName || user.password !== password);
+    setUsers(updatedUsersList);
+     return (updatedUsersList)
+
+  }
+
   
 
 function updateUser(userName,keyToUpdate) {
@@ -54,10 +57,16 @@ function updateUser(userName,keyToUpdate) {
     }
 }
 
+
+function login (loginUser) {
+    const allUserData = getUsers();
+    const matchUser = allUserData.find ((user)=> user.userName)
+}
+
 module.exports = {
     getUsers,
     registarNewUser,
-    deleteUser,
+    removeUser,
     updateUser,
     userAutentication
 
