@@ -7,6 +7,9 @@ function getTodos() {
     return value;
 }
 
+function getTodosByUser () {
+    
+}
 
 function setTodos(todos) {
     const value = JSON.stringify(todos)

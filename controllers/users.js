@@ -1,31 +1,33 @@
 const usersService = require('../services/users')
 
-function getUsers (req,res) {
-    const users = usersService.getUsers();
+async function getUsers (req,res) {
+    const users = await usersService.getUsers();
     res.json(users);
 
- 
+
  }
 
- function removeUser(req, res) {
+ async function removeUser(req, res) {
   const userName = req.params.userName;
   const password  = req.params.password;
   
-  const updatedUsersList = usersServices.removeUser(userName,password);
+  const updatedUsersList = await usersService.removeUser(userName,password);
   res.json(updatedUsersList);
 }
 
 
-  function registarNewUser (req,res) {
+  async function registarNewUser (req,res) {
     const newUser = req.body;
-    usersService.registarNewUser(newUser);
+    await usersService.registarNewUser(newUser);
     res.json(newUser)
 
   }
 
-function login (req,res) {
-  const loginDetails = req.body;
-  const userInfo = userInfo.login(loginDetails);
+async function login (req,res) {
+  const user = req.body
+
+  await usersService.login(user);
+  
   
 }
 

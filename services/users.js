@@ -1,73 +1,77 @@
-const { readFileSync, writeFileSync } = require('fs');
-const { get } = require('http');
+const { readFile, writeFile } = require('fs/promsies');
 
 
 
-function getUsers() {
-    const value = JSON.parse(readFileSync('./users-data.json'))       
+async function getUsers() {
+    const value = JSON.parse(await readFile('./users-data.json'))
     return value;
 }
 
-function setUsers(users) {
-    const value = JSON.stringify(users)
-    writeFileSync('./users-data.json', value);
+async function getUser(userId) {
+    const user = (await getUsers()).find(user => user.id === userId)
+    return user
 }
 
-function userAutentication (userName, password) {
-    const user = getUsers().find(user => user.userName === userName)
-    if (user && user.password === password) {
-     return user 
-    } else {
-     return false
-    }
- }
- 
 
- function registarNewUser ({userName,password,email}) {
-    const currentUsers = getUsers();
+
+async function setUsers(users) {
+    const value = JSON.stringify(users)
+    await writeFile('./users-data.json', value);
+}
+
+async function login({ userName, password }) {
+    const user = (await getUsers()).find(user => user.userName === userName)
+    if (user && user.password === password) {
+        return user
+    } else {
+        return false
+    }
+}
+
+
+async function registarNewUser({ userName, password, email }) {
+    const currentUsers = await getUsers();
     currentUsers.push({
         id: btoa(Math.random()),
-        userName, 
+        userName,
         password,
         email,
     });
-    setUsers (currentUsers)
+    setUsers(currentUsers)
 }
 
 
-function removeUser(userName, password) {
-    const currentUsers = getUsers();
+async function removeUser(userName, password) {
+    const currentUsers = await getUsers();
     const updatedUsersList = currentUsers.filter(user => user.userName !== userName || user.password !== password);
-    setUsers(updatedUsersList);
-     return (updatedUsersList)
+    await setUsers(updatedUsersList);
+    return (updatedUsersList)
 
-  }
+}
 
-  
 
-function updateUser(userName,keyToUpdate) {
-    const currentUsers = getUsers();
-    
+
+async function updateUser(userName, keyToUpdate) {
+    const currentUsers = await getUsers();
+
     const userToUpdate = currentUsers.find(user => user.user === userName)
-    
 
-    if(userToUpdate){
+
+    if (userToUpdate) {
         userToUpdate[keyToUpdate] = userName;
-        setUsers(currentUsers);
+        await setUsers(currentUsers);
     }
 }
 
 
-function login (loginUser) {
-    const allUserData = getUsers();
-    const matchUser = allUserData.find ((user)=> user.userName)
-}
+
 
 module.exports = {
     getUsers,
     registarNewUser,
     removeUser,
     updateUser,
-    userAutentication
+    login,
+    getUser
 
 }

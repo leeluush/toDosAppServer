@@ -1,1 +1,20 @@
-[{"id":"13215","userName":"lee","password":"taylor-swift","email":"lee@gmail.com"},{"userName":"lee","password":"MC43OTMwMDE5ODQ4MTc0OTYx","email":"lee@gmail.com"},{"id":"MC4yODY0NzU5Nzc4NjA2NzQyNQ==","userName":"lee","password":"taylor-swift","email":"lee@gmail.com"}]
+[
+    {
+        "id": "13215",
+        "userName": "lee",
+        "password": "taylor-swift",
+        "email": "lee@gmail.com"
+    },
+    {
+        "userName": "lee",
+        "password": "MC43OTMwMDE5ODQ4MTc0OTYx",
+        "email": "lee@gmail.com"
+    },
+    {
+        "id": "MC4yODY0NzU5Nzc4NjA2NzQyNQ==",
+        "userName": "lee",
+        "password": "taylor-swift",
+        "email": "lee@gmail.com",
+        "isAdmin": true
+    }
+]

@@ -1,8 +1,9 @@
 const todosService = require('../services/todos')
 
 
-function getTodos (req,res) {
-    const todos = todosService.getTodos();
+async function getTodos (req,res) {
+    const user = req.user;
+    const todos = await todosService.getTodos(user.id);
     res.json(todos);
  
  }
@@ -14,9 +15,12 @@ function getTodos (req,res) {
     
   }
 
-  function createToDo (req,res) {
+  async function createToDo (req,res) {
     const newTodo = req.body;
-    todosService.addTodo(newTodo);
+    const user = req.user; 
+
+    newTodo.user = userId;
+    const todos = await todosService.getTodos(userId);
     res.json(newTodo)
 
   }
